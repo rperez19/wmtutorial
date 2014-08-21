@@ -1,0 +1,12 @@
+﻿@{
+var db = Database.Open("MiSitio");
+var consulta = 
+"SELECT Titulo, Contenido, Autor, Fecha FROM Post WHERE PostId = @0";
+var postInfo = db.QuerySingle(consulta, Request["PostId"]);
+}
+
+<h1>@postInfo.Titulo</h1>
+<h3> publicado el @postInfo.Fecha por @postInfo.Autor</h3>
+<div style="border: .2em dotted #900; width:auto">
+@postInfo.Contenido
+</div>

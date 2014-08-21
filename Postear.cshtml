@@ -1,0 +1,50 @@
+﻿@{ 
+Layout = "/shared/_Maestra.cshtml";
+PageData["Titulo"] = "Postear";
+
+if (IsPost)
+{ 
+var db = Database.Open("MiSitio");
+var sentenciaInsercion = 
+"INSERT INTO Post (Titulo, Contenido, Autor, Fecha) VALUES (@0, @1, @2, @3)";
+
+db.Execute(sentenciaInsercion, 
+Request["titulo"], 
+Request["contenido"], 
+Request["autor"], 
+DateTime.Now.ToString());
+var id = db.GetLastInsertId();
+Response.Redirect(@Href("/MostrarPost?PostId=" + id));
+}
+}
+
+<form method="post" action="">
+<table>
+<tr>
+<td><label>Titulo</label></td>
+<td>
+<input type="text" name="titulo" size="52" 
+value="@Request["titulo"]"/>
+</td>
+</tr>
+<tr>
+<td><label>Contenido</label></td>
+<td>
+<textarea name="contenido" rows="15" cols="40"> 
+ @Request["contenido"]</textarea></textarea>
+</td>
+</tr> 
+<tr>
+<td><label>Autor</label></td>
+<td>
+<input type="text" name="autor" size="52"
+value="@Request["autor"]"/>
+</td>
+</tr>
+<tr>
+<td>
+<input type="submit" value="Publicar" />
+</td>
+</tr>
+</table>
+</form>

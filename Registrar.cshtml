@@ -1,0 +1,24 @@
+﻿@{
+   if(IsPost)
+   {
+       var sentenciaInsercion = "INSERT INTO Usuario (Nombre) VALUES (@0)";
+       var db = Database.Open("MiSitio");
+       db.Execute(sentenciaInsercion, Request["nombreusuario"]); 
+       WebSecurity.CreateAccount(Request["nombreusuario"], Request["password"]);
+   }
+}
+
+<form method="post" action="">
+    <fieldset>
+       <legend>Registrarse como usuario</legend>
+          <div>
+             <label for="nombreusuario">Nombre:</label>
+             <input type="text" name="nombreusuario" value="@Request["nombreusuario"]"/>
+          </div>
+       <div>
+       <label for="nombreusuario">Clave:</label>
+       <input type="password" name="password" value="@Request["password"]"/>
+       </div> 
+    </fieldset>
+<div><input type="submit" value="Registrarse" /></div>
+</form>

@@ -1,0 +1,38 @@
+﻿@{
+     var nombre = "Pedro"; 
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+       <h1>Sentencia inline: Son las @DateTime.Now</h1>
+@{ var cadena = "Esto es una sentencia de una sola linea"; }
+@{
+var otraCadena = "Esto es una sentencia";
+otraCadena = otraCadena + " en multiples lineas";
+} 
+        <h2>@cadena</h2>
+<h2>@otraCadena</h2>
+        @{ 
+// Declaracion de cadenas
+
+var cadenaBackslash = @"Cadena con backslash \";
+var cadenaComillas = @"Cadena con ""comillas""";
+}
+        <h2>@cadenaBackslash</h2>
+    <h2>@cadenaComillas</h2>
+    </body>
+</html>
+
+@{
+int[] coleccion = new int[] { 1, 2, 3, 4 };
+for (int i=0; i<coleccion.Length; i++)
+{
+<h1>Numero @coleccion[i]</h1>
+}
+}

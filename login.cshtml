@@ -1,0 +1,31 @@
+﻿@{
+if(IsPost)
+{
+if(WebSecurity.Login(
+Request["nombreusuario"], Request["password"]) == true)
+{
+<text>Usuario autenticado</text>
+}
+else
+{
+<text>Autenticación fallida</text>
+}
+} 
+}
+
+<form method="post" action="">
+<fieldset>
+<legend>Loguearse como usuario</legend>
+<div>
+<label for="nombreusuario">Nombre:</label>
+<input type="text" name="nombreusuario" 
+value="@Request["nombreusuario"]"/>
+</div>
+<div>
+<label for="nombreusuario">Clave:</label>
+<input type="password" name="password" 
+value="@Request["password"]"/>
+</div> 
+</fieldset>
+<div><input type="submit" value="Loguear" /></div>
+</form>

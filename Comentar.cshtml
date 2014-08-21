@@ -1,0 +1,40 @@
+﻿@{
+if (WebSecurity.IsAuthenticated == false) 
+{
+Response.Redirect("/Login?UrlRetorno=/Comentar"); 
+}
+else
+{
+if(IsPost)
+{
+/* Insertar en BD el comentario */ 
+var db = Database.Open("MiSitio");
+string sentenciaInsercion = 
+"INSERT INTO Comentario (Autor, Contenido, Fecha, PostId) VALUES (@0, @1, @2, @3)";
+db.Execute(
+sentenciaInsercion,
+WebSecurity.CurrentUserName,
+Request["comentario"],
+DateTime.Now.ToString(),
+Request["postid"].AsInt());
+}
+}
+}
+
+<form method="post" action="">
+<fieldset>
+<legend>Comentar el post</legend>
+<div>
+<label>Post ID</label>
+<input type="text" name="postid"
+value="@Request["postid"]" />
+         </div>
+<div> 
+<label>Comentario</label>
+<textarea name="comentario" rows="15" cols="40"
+value="@Request["comentario"]"></textarea>
+</div>
+</legend>
+</fieldset>
+<div><input type="submit" value="Comentar" /></div> 
+</form>
